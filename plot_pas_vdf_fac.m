@@ -9,7 +9,7 @@ end
 [x,y,dt] = load_pas_vdf_fac(date, deltat, resolution,verbose);
 imagesc(x,y,log10(dt))
 xlabel('v_{||}/c','FontSize',16)
-ylabel('v_{\perp}/c''FontSize',16)
+ylabel('v_{\perp}/c','FontSize',16)
 cmap = [1 1 1; parula(256)];
 colormap(cmap)
 set(gca, 'YDir', 'normal')
