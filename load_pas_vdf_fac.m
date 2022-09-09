@@ -1,8 +1,18 @@
 function  [vpars, vpers, dt] = load_pas_vdf_fac(date, deltat, resolution, verbose)
 %LOAD_FAC_PAS  Transforms PAS into field aligned coordinates
-%   Returns array containing the paralell velocity and perpendicular
+%   Returns arrays containing the paralell velocity and perpendicular
 %   velocity as coordinates and the number of protons.
-%   out = [(parvel, pervel, np) x (record number) x (number of pixels * number of energy bins)]
+%   _______________________________________________________
+%   Input
+%   date = datenum time
+%   deltat = time to average the VDFs
+%   resolution = resolution of the velocity grid
+%   verbose = verbose
+%   _______________________________________________________
+%   Output
+%   vpars = paralel velocity coordinates
+%   vpers = perpendicular velocity coordinates
+%   dt = VDF data projected onto grid as defined by the coordinates
 
 %#ok<*AGROW>
 caa_data_paths
