@@ -12,10 +12,9 @@ function calculate_frequency_band_power(fmin,fmax)
     band_power_hs = [];
 
     % start browsing tswf data from the beginning of the mission
-    t0 = datenum(2020,1,1);
-    t0 = datenum(2021,9,5);
+    t0 = datetime(2020,1,1);
     samemonth = month(t0);
-    while t0<datenum(date)
+    while t0<datetime(date)
         
         % skipping days with VGAM, EGAM or a type III event
         if gam_detector(t0) || typeIII_detector(t0) 
