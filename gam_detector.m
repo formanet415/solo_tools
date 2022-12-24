@@ -6,6 +6,7 @@ function out = gam_detector(date, verbose)
     end
     out = false; 
     within = 48/24; % change this to make the detection tolerance bigger/smaller
+    date = datenum(date);
 
 % Data retrieved from https://solarorbiter.esac.esa.int/where/ on 2022/12/24
     gams = [datenum(2020,12,27,12,37,0), ...            % VGAM1

@@ -8,7 +8,7 @@ function out = typeIII_detector(date, verbose)
 % events with significant EPD electron flux increase and does not contain
 % all type III radio emissions.
     
-    date = floor(date);
+    date = floor(datenum(date));
     if ~exist('verbose', 'var') || isempty(verbose)
         verbose = 0;
     end
