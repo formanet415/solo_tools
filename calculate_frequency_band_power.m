@@ -1,4 +1,4 @@
-function calculate_frequency_band_power(fmin,fmax)
+function calculate_frequency_band_power(fmin,fmax,verbose)
 %calculate_frequency_band_power(cdf, f0 [Hz],f1 [Hz]) 
 %Calculates the power from TDS data in the range from f0 to f1. 
     
@@ -17,7 +17,7 @@ function calculate_frequency_band_power(fmin,fmax)
     while t0<datetime(date)
         
         % skipping days with VGAM, EGAM or a type III event
-        if gam_detector(t0) || typeIII_detector(t0) 
+        if gam_detector(t0, verbose) || typeIII_detector(t0, verbose) 
             if verbose==1
                 disp('skipping day')
             end
