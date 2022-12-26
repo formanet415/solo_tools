@@ -99,17 +99,24 @@ function calculate_frequency_band_power(fmin,fmax,plotit,verbose)
 
     for yrs = 2020:year(date) % Plotting all months in plot subdirectory
         for months = 1:12
+            lo_dat = [];
+            hi_dat_1 = [];
+            hi_dat_2 = [];
+            emp=1;
             [~,i0] = min(abs(epoch_high_samp-datenum(yrs,months,1)));
             [~,i1] = min(abs(epoch_high_samp-datenum(yrs,months,eomday(yrs,months))));
             if i0==i1
                 hi_ep = [];
             else
-            hi_ep = epoch_high_samp(i0:i1);
-            hi_dat_1 = 1e6*band_power_hs_1(i0:i1);
-            plot(hi_ep,hi_dat_1,'r-','Displayname','$20-100\mathrm{kHz}$ power - $524\mathrm{kHz}$ mode');
-            hold on
-            hi_dat_2 = 1e6*band_power_hs_2(i0:i1);
-            plot(hi_ep,hi_dat_2,'g-','Displayname','$125-200\mathrm{kHz}$ power - $524\mathrm{kHz}$ mode');
+                emp=0;
+                
+                hi_ep = epoch_high_samp(i0:i1);
+                hi_dat_2 = 1e6*band_power_hs_2(i0:i1);
+                plot(hi_ep,hi_dat_2,'g-','Displayname','125-200 kHz power - 524 kHz mode');
+                hold on
+                
+                hi_dat_1 = 1e6*band_power_hs_1(i0:i1);
+                plot(hi_ep,hi_dat_1,'r-','Displayname','20-100 kHz power - 524 kHz mode');
             end
             
             [~,i0] = min(abs(epoch_low_samp-datenum(yrs,months,1)));
@@ -117,18 +124,28 @@ function calculate_frequency_band_power(fmin,fmax,plotit,verbose)
             if i0==i1
                 lo_ep = [];
             else
-            lo_ep = epoch_low_samp(i0:i1);
-            lo_dat = 1e6*band_power_ls(i0:i1);
-            plot(lo_ep,lo_dat,'b-','Displayname','$20-100\mathrm{kHz}$ power - $262\mathrm{kHz}$ mode');
+                lo_ep = epoch_low_samp(i0:i1);
+                lo_dat = 1e6*band_power_ls(i0:i1);
+                plot(lo_ep,lo_dat,'b-','Displayname','20-100 kHz power - 262 kHz mode');
+                emp=0;
             end
-            legend()
-            xlim(min(min(lo_ep),min(hi_ep)),max(max(lo_ep),max(hi_ep)))
-            datetick('Keeplimits')
+            if emp == 0
+                legend()
+                xlim([min([lo_ep,hi_ep]),max([lo_ep,hi_ep])])
+                ylim([0,min(0.02,max([lo_dat,hi_dat_1,hi_dat_2]))])
+                datetick('x',20,'Keeplimits')
+                title(sprintf('Band power plot %i-%i.png',yrs,months))
+                hold off
+                graph = gcf;
+                graph.Position = [100 100 1100 700];
+                saveas(graph, ['plots' filesep sprintf('band_power_plot_%i-%i.png',yrs,months)])
+                close(graph)
+            end
             
             
             
             
-            hold off
+            
         end
     end
 end

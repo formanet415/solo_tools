@@ -2,3 +2,4 @@
 *.asv
 *.mat
 !t3_in_situ_events*.mat
+plots/*
